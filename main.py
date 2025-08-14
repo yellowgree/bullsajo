@@ -21,16 +21,13 @@ def bubble_sort(arr):
 
 
 def selection_sort(arr):
-    # 삽입 정렬 방식으로 구현
-    for i in range(1, len(arr)):
-        key = arr[i]
-        j = i - 1
-        # key보다 큰 원소들을 한 칸씩 뒤로 밀기
-        while j >= 0 and arr[j] > key:
-            arr[j + 1] = arr[j]
-            j -= 1
-        # key를 올바른 위치에 삽입
-        arr[j + 1] = key
+    n = len(arr)
+    for i in range(n - 1):
+        min_idx = i
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
     return arr
 
 
