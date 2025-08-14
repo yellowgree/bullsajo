@@ -50,7 +50,6 @@ if __name__ == "__main__":
         content = f.read().strip()
         data = [int(x.strip()) for x in content.split(",") if x.strip().isdigit()]
 
-
     print("원본 데이터:", data)
 
     # 각 정렬 알고리즘 테스트
