@@ -1,4 +1,8 @@
+import time
+
 def heap_sort(arr):
+    start_time = time.time()
+    
     def heapify(arr, n, i):
         largest = i
         left = 2 * i + 1
@@ -28,11 +32,17 @@ def heap_sort(arr):
         arr[i], arr[0] = arr[0], arr[i]  # 루트(최대값)와 마지막 원소 교환
         heapify(arr, i, 0)
 
+    end_time = time.time()
+    print(f"힙 정렬 실행 시간: {end_time - start_time:.6f}초")
     return arr
 
 
 def bubble_sort(arr):
+    start_time = time.time()
+    
     if not arr:
+        end_time = time.time()
+        print(f"버블 정렬 실행 시간: {end_time - start_time:.6f}초")
         return arr
 
     sorted_arr = arr.copy()
@@ -48,10 +58,14 @@ def bubble_sort(arr):
         if not swapped:
             break
 
+    end_time = time.time()
+    print(f"버블 정렬 실행 시간: {end_time - start_time:.6f}초")
     return sorted_arr
 
 
 def selection_sort(arr):
+    start_time = time.time()
+    
     n = len(arr)
     for i in range(n - 1):
         min_idx = i
@@ -59,10 +73,15 @@ def selection_sort(arr):
             if arr[j] < arr[min_idx]:
                 min_idx = j
         arr[i], arr[min_idx] = arr[min_idx], arr[i]
+    
+    end_time = time.time()
+    print(f"선택 정렬 실행 시간: {end_time - start_time:.6f}초")
     return arr
 
 
 def insertion_sort(arr):
+    start_time = time.time()
+    
     # 삽입 정렬 알고리즘
     n = len(arr)
     # 두 번째 원소부터 시작하여 배열을 순회
@@ -80,31 +99,41 @@ def insertion_sort(arr):
         # 올바른 위치에 key를 삽입
         arr[j + 1] = key
 
+    end_time = time.time()
+    print(f"삽입 정렬 실행 시간: {end_time - start_time:.6f}초")
     return arr
 
 
 def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr
+    start_time = time.time()
+    
+    def merge_sort_recursive(arr):
+        if len(arr) <= 1:
+            return arr
 
-    mid = len(arr) // 2
-    left = merge_sort(arr[:mid])
-    right = merge_sort(arr[mid:])
+        mid = len(arr) // 2
+        left = merge_sort_recursive(arr[:mid])
+        right = merge_sort_recursive(arr[mid:])
 
-    merged = []
-    i = j = 0
+        merged = []
+        i = j = 0
 
-    while i < len(left) and j < len(right):
-        if left[i] <= right[j]:
-            merged.append(left[i])
-            i += 1
-        else:
-            merged.append(right[j])
-            j += 1
+        while i < len(left) and j < len(right):
+            if left[i] <= right[j]:
+                merged.append(left[i])
+                i += 1
+            else:
+                merged.append(right[j])
+                j += 1
 
-    merged.extend(left[i:])
-    merged.extend(right[j:])
-    return merged
+        merged.extend(left[i:])
+        merged.extend(right[j:])
+        return merged
+    
+    result = merge_sort_recursive(arr)
+    end_time = time.time()
+    print(f"병합 정렬 실행 시간: {end_time - start_time:.6f}초")
+    return result
 
 
 def quick_sort(arr):
@@ -113,8 +142,12 @@ def quick_sort(arr):
     - 피벗: median-of-three (lo, mid, hi)
     - 파티션: Hoare
     """
+    start_time = time.time()
+    
     n = len(arr)
     if n <= 1:
+        end_time = time.time()
+        print(f"퀵 정렬 실행 시간: {end_time - start_time:.6f}초")
         return arr[:]
 
     a = arr[:]  # 원본 보존
@@ -156,6 +189,8 @@ def quick_sort(arr):
             stack.append(left)
             stack.append(right)
 
+    end_time = time.time()
+    print(f"퀵 정렬 실행 시간: {end_time - start_time:.6f}초")
     return a
 
 
@@ -164,23 +199,28 @@ if __name__ == "__main__":
         content = f.read().strip()
         data = [int(x.strip()) for x in content.split(",") if x.strip().isdigit()]
 
-    print("원본 데이터:", data)
 
     # 각 정렬 알고리즘 테스트
     print("\n[버블 정렬 결과]")
-    print(bubble_sort(data.copy()))
+    result = bubble_sort(data.copy())
+    print(result)
 
     print("\n[선택 정렬 결과]")
-    print(selection_sort(data.copy()))
+    result = selection_sort(data.copy())
+    print(result)
 
     print("\n[삽입 정렬 결과]")
-    print(insertion_sort(data.copy()))
+    result = insertion_sort(data.copy())
+    print(result)
 
     print("\n[병합 정렬 결과]")
-    print(merge_sort(data.copy()))
+    result = merge_sort(data.copy())
+    print(result)
 
     print("\n[퀵 정렬 결과]")
-    print(quick_sort(data.copy()))
+    result = quick_sort(data.copy())
+    print(result)
 
     print("\n[힙 정렬 결과]")
-    print(heap_sort(data.copy()))
+    result = heap_sort(data.copy())
+    print(result)
