@@ -48,7 +48,58 @@ def merge_sort(arr):
 
 
 def quick_sort(arr):
-    pass  # 퀵 정렬 구현 예정
+    """
+    반복(스택) 기반 퀵정렬: 최악의 재귀 깊이 회피, 반환은 새 리스트.
+    - 피벗: median-of-three (lo, mid, hi)
+    - 파티션: Hoare
+    """
+    n = len(arr)
+    if n <= 1:
+        return arr[:]
+
+    a = arr[:]  # 원본 보존
+    stack = [(0, n - 1)]
+
+    def median_of_three(lo, hi):
+        mid = (lo + hi) // 2
+        x = [(a[lo], lo), (a[mid], mid), (a[hi], hi)]
+        x.sort(key=lambda t: t[0])
+        return x[1][1]  # 인덱스 반환
+
+    while stack:
+        lo, hi = stack.pop()
+        if lo >= hi:
+            continue
+
+        # ---- Hoare partition ----
+        pidx = median_of_three(lo, hi)
+        pivot = a[pidx]
+        i, j = lo - 1, hi + 1
+        while True:
+            i += 1
+            while a[i] < pivot:
+                i += 1
+            j -= 1
+            while a[j] > pivot:
+                j -= 1
+            if i >= j:
+                break
+            a[i], a[j] = a[j], a[i]
+
+        # 다음 구간 push (작은 구간 먼저 넣어 스택 깊이 최소화)
+        left = (lo, j)
+        right = (j + 1, hi)
+        if left[1] - left[0] < right[1] - right[0]:
+            stack.append(right)
+            stack.append(left)
+        else:
+            stack.append(left)
+            stack.append(right)
+
+    return a
+
+
+
 
 
 def heap_sort(arr):
