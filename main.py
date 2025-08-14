@@ -1,22 +1,53 @@
-# main.py
+def heap_sort(arr):
+    def heapify(arr, n, i):
+        largest = i
+        left = 2 * i + 1
+        right = 2 * i + 2
+
+        # 왼쪽 자식이 루트보다 큰 경우
+        if left < n and arr[left] > arr[largest]:
+            largest = left
+
+        # 오른쪽 자식이 현재 최대값보다 큰 경우
+        if right < n and arr[right] > arr[largest]:
+            largest = right
+
+        # 최대값이 루트가 아닌 경우 교환 후 재귀 호출
+        if largest != i:
+            arr[i], arr[largest] = arr[largest], arr[i]
+            heapify(arr, n, largest)
+
+    n = len(arr)
+
+    # 최대 힙 구성
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(arr, n, i)
+
+    # 힙에서 요소 하나씩 꺼내 정렬
+    for i in range(n - 1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]  # 루트(최대값)와 마지막 원소 교환
+        heapify(arr, i, 0)
+
+    return arr
+
 
 def bubble_sort(arr):
     if not arr:
         return arr
-    
+
     sorted_arr = arr.copy()
     n = len(sorted_arr)
-    
+
     for i in range(n):
         swapped = False
         for j in range(0, n - i - 1):
             if sorted_arr[j] > sorted_arr[j + 1]:
                 sorted_arr[j], sorted_arr[j + 1] = sorted_arr[j + 1], sorted_arr[j]
                 swapped = True
-        
+
         if not swapped:
             break
-    
+
     return sorted_arr
 
 
@@ -40,15 +71,15 @@ def insertion_sort(arr):
         key = arr[i]
         # key의 앞 원소부터 역순으로 비교
         j = i - 1
-        
+
         # key보다 큰 원소들을 오른쪽으로 한 칸씩 이동
         while j >= 0 and key < arr[j]:
             arr[j + 1] = arr[j]
             j -= 1
-            
+
         # 올바른 위치에 key를 삽입
         arr[j + 1] = key
-    
+
     return arr
 
 
@@ -74,7 +105,6 @@ def merge_sort(arr):
     merged.extend(left[i:])
     merged.extend(right[j:])
     return merged
-
 
 
 def quick_sort(arr):
@@ -127,13 +157,6 @@ def quick_sort(arr):
             stack.append(right)
 
     return a
-
-
-
-
-
-def heap_sort(arr):
-    pass  # 선택 구현: 힙 정렬
 
 
 if __name__ == "__main__":
