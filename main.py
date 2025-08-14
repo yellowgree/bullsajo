@@ -19,7 +19,24 @@ def selection_sort(arr):
 
 
 def insertion_sort(arr):
-    pass  # 삽입 정렬 구현 예정
+    # 삽입 정렬 알고리즘
+    n = len(arr)
+    # 두 번째 원소부터 시작하여 배열을 순회
+    for i in range(1, n):
+        # 현재 삽입할 원소를 선택
+        key = arr[i]
+        # key의 앞 원소부터 역순으로 비교
+        j = i - 1
+        
+        # key보다 큰 원소들을 오른쪽으로 한 칸씩 이동
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+            
+        # 올바른 위치에 key를 삽입
+        arr[j + 1] = key
+    
+    return arr
 
 
 def merge_sort(arr):
