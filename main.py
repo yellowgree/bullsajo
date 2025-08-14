@@ -5,7 +5,17 @@ def bubble_sort(arr):
 
 
 def selection_sort(arr):
-    pass  # 선택 정렬 구현 예정
+    # 삽입 정렬 방식으로 구현
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        # key보다 큰 원소들을 한 칸씩 뒤로 밀기
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        # key를 올바른 위치에 삽입
+        arr[j + 1] = key
+    return arr
 
 
 def insertion_sort(arr):
