@@ -25,9 +25,9 @@ def heap_sort(arr):
 
 
 if __name__ == "__main__":
-    # data.txt 읽기 (각 줄에 숫자가 있다고 가정)
     with open("data.txt", "r", encoding="utf-8") as f:
-        data = [int(line.strip()) for line in f if line.strip().isdigit()]
+        content = f.read().strip()
+        data = [int(x.strip()) for x in content.split(",") if x.strip().isdigit()]
 
     print("원본 데이터:", data)
 
