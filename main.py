@@ -1,7 +1,23 @@
 # main.py
 
 def bubble_sort(arr):
-    pass  # 버블 정렬 구현 예정
+    if not arr:
+        return arr
+    
+    sorted_arr = arr.copy()
+    n = len(sorted_arr)
+    
+    for i in range(n):
+        swapped = False
+        for j in range(0, n - i - 1):
+            if sorted_arr[j] > sorted_arr[j + 1]:
+                sorted_arr[j], sorted_arr[j + 1] = sorted_arr[j + 1], sorted_arr[j]
+                swapped = True
+        
+        if not swapped:
+            break
+    
+    return sorted_arr
 
 
 def selection_sort(arr):
