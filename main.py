@@ -13,7 +13,28 @@ def insertion_sort(arr):
 
 
 def merge_sort(arr):
-    pass  # 병합 정렬 구현 예정
+    if len(arr) <= 1:
+        return arr
+
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+
+    merged = []
+    i = j = 0
+
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            merged.append(left[i])
+            i += 1
+        else:
+            merged.append(right[j])
+            j += 1
+
+    merged.extend(left[i:])
+    merged.extend(right[j:])
+    return merged
+
 
 
 def quick_sort(arr):
@@ -25,9 +46,10 @@ def heap_sort(arr):
 
 
 if __name__ == "__main__":
-    # data.txt 읽기 (각 줄에 숫자가 있다고 가정)
     with open("data.txt", "r", encoding="utf-8") as f:
-        data = [int(line.strip()) for line in f if line.strip().isdigit()]
+        content = f.read().strip()
+        data = [int(x.strip()) for x in content.split(",") if x.strip().isdigit()]
+
 
     print("원본 데이터:", data)
 
